@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void operatorButtonOnClick(Button button){
         int tracerlen = string_tracer.length();
         if(current.length() > 0){
+            if(isNumeric(current.getText().charAt(0)) == false) {
+                clearAllButtonOnClick();
+                return;
+            }
             string_tracer.append(current.getText());
             current.setText("");
             string_tracer.append(button.getText());
@@ -89,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void equalButtonOnClick(){
         if(current.length() > 0){
+            if(isNumeric(current.getText().charAt(0)) == false) {
+                clearAllButtonOnClick();
+                return;
+            }
             string_tracer.append(current.getText());
             tracer.setText(string_tracer);
         }
@@ -102,8 +110,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void backspaceButtonClick(){
         int length = current.length();
-        if(length > 1)
+        if(length > 1) {
+            if(isNumeric(current.getText().charAt(0)) == false) {
+                clearAllButtonOnClick();
+                return;
+            }
             current.setText(current.getText().subSequence(0, length - 1));
+        }
         else if(length == 1)
             current.setText("0");
     }
@@ -119,7 +132,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void dotButtonOnClick(){
-        is_equal_click = false;
+        if(isNumeric(current.getText().charAt(0)) == false) {
+            clearAllButtonOnClick();
+            return;
+        }
         if(current.getText().toString().indexOf(".") < 0) {
             if(current.length() == 0)
                 current.append("0");
